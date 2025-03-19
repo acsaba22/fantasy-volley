@@ -1,6 +1,17 @@
-# Fantasy-Volley
+# Probability of winning in a mathematically perfect Volley Tournament
 
-A Python project demonstrating symbolic mathematics with SymPy.
+## Problem
+
+There are two teams: X, Y. They play a series of rallies each one is worth one point.
+They play until one team wins N points (e.g. 100).
+
+In the first rally X is serving. The one who serves inherently has an advantage.
+The team X has a probability of P winning a rally if it serves (e.g. 99%).
+The team Y has a probability of Q winning a rally if it serves (e.g. 98%).
+
+In the first example they alternate serving.
+
+Calculate the probability that X wins.
 
 ## Setup and Installation
 
