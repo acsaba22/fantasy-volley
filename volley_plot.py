@@ -24,7 +24,7 @@ def plot_probabilities(max_n, p_val, q_val):
         mode='lines+markers',
         line=dict(width=2),
         marker=dict(size=10),
-        hovertemplate='<b>N=%{x}</b><br>P(win)=%{y:.6f}<extra></extra>'
+        hovertemplate='%{y:.6f} [n = %{x}]<extra></extra>'
     ))
     
     # Update layout for better appearance
