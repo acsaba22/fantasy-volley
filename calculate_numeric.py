@@ -1,7 +1,11 @@
 import volley_lib
-from volley_lib import ServingStrategy, probXWins
+from volley_lib import ServingStrategy, probXWins, probXWinsPartial
 
 def calculateNumeric(maxn, p_val=0.99, q_val=0.98):
+    # Clear cache before calculation because P and Q are changing
+    probXWinsPartial.cache_clear()
+    
+    # Set the global parameters
     volley_lib.P, volley_lib.Q = p_val, q_val
     
     n_values = list(range(1, maxn+1))
