@@ -58,12 +58,18 @@ with gr.Blocks() as demo:
 
         with gr.Column(scale=2):
             plot_output = gr.Plot()
-
+    
+    # Button click event
     calculate_btn.click(
         fn=plot_probabilities,
         inputs=[max_n, p_val, q_val],
         outputs=plot_output
     )
+    
+    # Trigger calculation on Enter in input fields
+    max_n.submit(fn=plot_probabilities, inputs=[max_n, p_val, q_val], outputs=plot_output)
+    p_val.submit(fn=plot_probabilities, inputs=[max_n, p_val, q_val], outputs=plot_output)
+    q_val.submit(fn=plot_probabilities, inputs=[max_n, p_val, q_val], outputs=plot_output)
     
     # Auto-run the calculation when the page loads
     demo.load(
