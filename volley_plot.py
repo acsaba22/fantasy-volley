@@ -1,6 +1,6 @@
 import gradio as gr
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from calculate_numeric import calculateNumeric
 
 def plot_probabilities(max_n, p_val, q_val):
@@ -9,26 +9,39 @@ def plot_probabilities(max_n, p_val, q_val):
     q_val = float(q_val)
 
     print(f'Calculating for N={max_n}, P={p_val}, Q={q_val}')
-    
+
     n_values, probabilities = calculateNumeric(max_n, p_val, q_val)
-    
+
     print(f'Results: {probabilities}')
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(n_values, probabilities, 'o-', linewidth=2, markersize=8)
-    ax.set_xlabel('N (Points to Win)', fontsize=12)
-    ax.set_ylabel('Probability of X Winning', fontsize=12)
-    ax.set_title(f'Winning Probability with P={p_val}, Q={q_val}', fontsize=14)
-    ax.grid(True)
-    ax.set_ylim(0, 1)
-
-    # Add exact values as text
-    for i, (n, prob) in enumerate(zip(n_values, probabilities)):
-        ax.annotate(f'{prob:.4f}',
-                   (n, prob),
-                   textcoords="offset points",
-                   xytext=(0,10),
-                   ha='center')
+    # Create a Plotly figure with hover information
+    fig = go.Figure()
+    
+    # Add the line with markers
+    fig.add_trace(go.Scatter(
+        x=n_values, 
+        y=probabilities,
+        mode='lines+markers',
+        line=dict(width=2),
+        marker=dict(size=10),
+        hovertemplate='<b>N=%{x}</b><br>P(win)=%{y:.6f}<extra></extra>'
+    ))
+    
+    # Update layout for better appearance
+    fig.update_layout(
+        title=f'Winning Probability with P={p_val}, Q={q_val}',
+        xaxis_title='N (Points to Win)',
+        yaxis_title='Probability of X Winning',
+        yaxis=dict(range=[0, 1]),
+        hovermode='closest',
+        template='plotly_white',
+        height=500,
+        width=800
+    )
+    
+    # Add grid
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
 
     return fig
 
