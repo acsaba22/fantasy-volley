@@ -15,6 +15,23 @@ There are two possible rules for serving:
 
 Calculate the probability that X wins in for each rule.
 
+## Usage
+
+Symbolic calculations:
+```
+$ python calculate_symbolic.py
+```
+
+Numeric calculations:
+```
+$ python calculate_numeric.py
+```
+
+Plot:
+```
+$ python volley_plot.py
+```
+
 ## Setup and Installation
 
 ### Prerequisites

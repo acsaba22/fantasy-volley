@@ -20,4 +20,4 @@ def calculateSymbolic(maxn):
         print(f"Value: {float(a.subs({volley_lib.P: 0.99, volley_lib.Q: 0.98})):.6f}")
 
 if __name__ == "__main__":
-    calculateSymbolic(8)
+    calculateSymbolic(7)
