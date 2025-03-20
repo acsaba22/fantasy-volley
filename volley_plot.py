@@ -51,9 +51,9 @@ with gr.Blocks() as demo:
 
     with gr.Row():
         with gr.Column(scale=1):
-            max_n = gr.Number(value=8, label="Maximum N (Points to Win)", precision=0, minimum=1, maximum=100)
-            p_val = gr.Number(value=0.99, label="P (X's winning probability when serving)", precision=4, minimum=0.0, maximum=1.0)
-            q_val = gr.Number(value=0.98, label="Q (Y's winning probability when serving)", precision=4, minimum=0.0, maximum=1.0)
+            max_n = gr.Number(value=30, label="Maximum N (Points to Win)", precision=0, minimum=1, maximum=1000)
+            p_val = gr.Number(value=0.9, label="P (X's winning probability when serving)", precision=4, minimum=0.0, maximum=1.0)
+            q_val = gr.Number(value=0.8, label="Q (Y's winning probability when serving)", precision=4, minimum=0.0, maximum=1.0)
             calculate_btn = gr.Button("Calculate and Plot")
 
         with gr.Column(scale=2):
