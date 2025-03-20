@@ -64,6 +64,13 @@ with gr.Blocks() as demo:
         inputs=[max_n, p_val, q_val],
         outputs=plot_output
     )
+    
+    # Auto-run the calculation when the page loads
+    demo.load(
+        fn=plot_probabilities,
+        inputs=[max_n, p_val, q_val],
+        outputs=plot_output
+    )
 
     gr.Markdown("""
     ## How to Use
