@@ -40,9 +40,22 @@ Calculate the probability that X wins in for each rule.
    ```
 
 ## Running the example
-After setting up the environment, you can run the example script:
+
+
+Record interactions with claude:
 ```
-python hello.py
+$ script -T ../fantasy.time -a ../fantasy.script
+$ . .venv/bin/activate
+$ claude
 ```
 
-This will demonstrate polynomial multiplication using SymPy.
+Replay interactions:
+```
+$ scriptreplay -T ../fantasy.time ../fantasy.script --maxdelay 1
+```
+
+After setting up the environment, you can run the example script:
+```
+$ . .venv/bin/activate
+python main.py
+```
