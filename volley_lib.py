@@ -1,7 +1,9 @@
 from functools import lru_cache
-from sympy import symbols
 from enum import Enum
 from dataclasses import dataclass
+
+# P and Q are global variables that should be set before calling these functions
+P, Q = None, None
 
 class ServingStrategy(Enum):
     WinnerServesNext = 0
@@ -37,6 +39,7 @@ class State:
 
         return State(needX, needY, xServes, self.servingStrategy)
 
+
 @lru_cache(maxsize=None)
 def probXWinsPartial(state):
     global P, Q
@@ -48,45 +51,7 @@ def probXWinsPartial(state):
 
     ret = (serverWins * probXWinsPartial(state.Next(True))
            + (1 - serverWins) * probXWinsPartial(state.Next(False)))
-    # ret = ret.expand().simplify() # makes it even slover and doesn't work for numbers
     return ret
 
 def probXWins(pointsToWin, servingStrategy):
     return probXWinsPartial(State(pointsToWin, pointsToWin, True, servingStrategy))
-
-
-def calculateSymbolic(maxn):
-    print('Calculating with polinoms')
-
-    global P, Q
-    P, Q = symbols('p q')
-
-    for n in range(1, maxn+1):
-        print(f"\nN = {n}")
-        a = probXWins(n, ServingStrategy.WinnerServesNext)
-        a = a.expand().simplify()
-        b = probXWins(n, ServingStrategy.AlternateServing)
-        b = b.expand().simplify()
-
-        print(f"Equal: {a == b}")
-        print(f"Result: {a}")
-
-        # Print with 6 decimal places
-        print(f"Value: {float(a.subs({P: 0.99, Q: 0.98})):.6f}")
-
-def calculatNumeric():
-    global P, Q
-    P, Q = 0.99, 0.98
-    a = probXWins(30, ServingStrategy.WinnerServesNext)
-    print(a)
-    pass
-
-def main():
-    calculateSymbolic(3)
-    probXWinsPartial.cache_clear()
-    calculatNumeric()
-
-    pass
-
-if __name__ == "__main__":
-    main()
