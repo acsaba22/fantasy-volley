@@ -1,5 +1,5 @@
 from functools import lru_cache
-from sympy import symbols, simplify
+from sympy import symbols
 from enum import Enum
 from dataclasses import dataclass
 
@@ -46,33 +46,47 @@ def probXWinsPartial(state):
         return 0
     serverWins = P if state.xServes else Q
 
-    return (serverWins * probXWinsPartial(state.Next(True))
-            + (1 - serverWins) * probXWinsPartial(state.Next(False)))
+    ret = (serverWins * probXWinsPartial(state.Next(True))
+           + (1 - serverWins) * probXWinsPartial(state.Next(False)))
+    # ret = ret.expand().simplify() # makes it even slover and doesn't work for numbers
+    return ret
 
 def probXWins(pointsToWin, servingStrategy):
     return probXWinsPartial(State(pointsToWin, pointsToWin, True, servingStrategy))
 
-def main():
+
+def calculateSymbolic(maxn):
+    print('Calculating with polinoms')
+
     global P, Q
     P, Q = symbols('p q')
-    print('WinerNext')
-    n = 6
-    # print(probXWinsPartial(State(1, 2, True, ServingStrategy.WinnerServesNext)))
-    # print(probXWinsPartial(State(2, 1, False, ServingStrategy.WinnerServesNext)))
-    a = probXWins(n, ServingStrategy.WinnerServesNext)
-    # print(a)
-    a = a.expand().simplify()
-    # print(a)
-    print('Alternate')
-    # print(probXWinsPartial(State(1, 2, False, ServingStrategy.AlternateServing)))
-    # print(probXWinsPartial(State(2, 1, False, ServingStrategy.AlternateServing)))
-    b = probXWins(n, ServingStrategy.AlternateServing)
-    # print(b)
-    b = b.expand().simplify()
-    # print(b)
 
-    print(f"{a == b}")
-    print(f"{a - b}")
+    for n in range(1, maxn+1):
+        print(f"\nN = {n}")
+        a = probXWins(n, ServingStrategy.WinnerServesNext)
+        a = a.expand().simplify()
+        b = probXWins(n, ServingStrategy.AlternateServing)
+        b = b.expand().simplify()
+
+        print(f"Equal: {a == b}")
+        print(f"Result: {a}")
+
+        # Print with 6 decimal places
+        print(f"Value: {float(a.subs({P: 0.99, Q: 0.98})):.6f}")
+
+def calculatNumeric():
+    global P, Q
+    P, Q = 0.99, 0.98
+    a = probXWins(30, ServingStrategy.WinnerServesNext)
+    print(a)
+    pass
+
+def main():
+    calculateSymbolic(3)
+    probXWinsPartial.cache_clear()
+    calculatNumeric()
+
+    pass
 
 if __name__ == "__main__":
     main()
