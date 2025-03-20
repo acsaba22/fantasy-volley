@@ -1,0 +1,4 @@
+sympy
+numpy
+gradio>=5.22.0
+matplotlib>=3.10.1
