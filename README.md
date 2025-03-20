@@ -9,9 +9,11 @@ In the first rally X is serving. The one who serves inherently has an advantage.
 The team X has a probability of P winning a rally if it serves (e.g. 99%).
 The team Y has a probability of Q winning a rally if it serves (e.g. 98%).
 
-In the first example they alternate serving.
+There are two possible rules for serving:
+- winner of the point serves next.
+- they alternate serving.
 
-Calculate the probability that X wins.
+Calculate the probability that X wins in for each rule.
 
 ## Setup and Installation
 
